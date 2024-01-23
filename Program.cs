@@ -31,6 +31,33 @@ namespace Address_Book_System
             }*/
         }
 
+        class AddressBook
+        {
+            private List<Contact> contacts;
+
+            public AddressBook()
+            {
+                contacts = new List<Contact>();
+            }
+
+            public void addContact(Contact contact)
+            {
+                contacts.Add(contact);
+            }
+
+            public void displayContacts()
+            {
+                foreach (var contact in contacts)
+                {
+                    Console.WriteLine($"Name: {contact.fname} {contact.lname}");
+                    Console.WriteLine($"Address: {contact.address}, {contact.city}, {contact.state}");
+                    Console.WriteLine($"Phone: {contact.phonenumber}");
+                    Console.WriteLine($"Email: {contact.email}");
+                    Console.WriteLine();
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Address Book.");
@@ -38,14 +65,20 @@ namespace Address_Book_System
 
             Contact newContact = new Contact
             {
-                fname = "John",
-                lname = "Doe",
-                address = "123 Main St",
-                city = "Anytown",
-                state = "CA",
+                fname = "Ankit",
+                lname = "Raj",
+                address = "Ramnagar",
+                city = "Hzb",
+                state = "JH",
                 phonenumber = "12345",
-                email = "john.doe@example.com"
+                email = "adsf@gmail.com"
             };
+
+            AddressBook book1 = new AddressBook();
+
+            book1.addContact(newContact);
+            book1.displayContacts();
+            Console.ReadLine();
 
         }
     }
