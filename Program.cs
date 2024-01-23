@@ -99,7 +99,7 @@ namespace Address_Book_System
             Console.WriteLine("Welcome to Address Book.");
             List<Contact> addressBook = new List<Contact>();
 
-            Contact newContact = new Contact
+           /* Contact newContact = new Contact
             {
                 fname = "Ankit",
                 lname = "Raj",
@@ -109,12 +109,58 @@ namespace Address_Book_System
                 phonenumber = "12345",
                 email = "adsf@gmail.com"
             };
+*/
 
             AddressBook book1 = new AddressBook();
+/*
+            book1.addContact(newContact);*/
 
-            book1.addContact(newContact);
+            bool a= true;
+            while(a)
+            {
+                Console.WriteLine("Enter the first name: ");
+                string fname = Console.ReadLine();
+                Console.WriteLine("Enter the last name: ");
+                string lname = Console.ReadLine();
+                Console.WriteLine("Enter the address: ");
+                string add = Console.ReadLine();
+                Console.WriteLine("Enter the city: ");
+                string city = Console.ReadLine();
+                Console.WriteLine("Enter the state: ");
+                string state = Console.ReadLine();
+                Console.WriteLine("Enter the Phone: ");
+                string phone = Console.ReadLine();
+                Console.WriteLine("Enter the email: ");
+                string email = Console.ReadLine();
+
+                Contact newCon = new Contact
+                {
+                    fname = fname,
+                    lname = lname,
+                    address = add,
+                    city = city,
+                    state = state,
+                    phonenumber = phone,
+                    email = email
+                };
+
+                book1.addContact(newCon);
+
+                Console.WriteLine("Do you want to insert more Contact ?  [yes/no]");
+                string q= Console.ReadLine();
+                if (q == "yes")
+                {
+                    a = true;
+                }
+                else
+                {
+                    a= false;
+                }
+            }
             book1.displayContacts();
 
+
+            //for updating contact
             Contact updated = new Contact
             {
                 fname = "Ankit",
@@ -126,12 +172,14 @@ namespace Address_Book_System
                 email = "adsfasdf@gmail.com"
             };
 
+
+
             Console.WriteLine("Enter the first name of the contact to edit: ");
             string firstName = Console.ReadLine();
 
             book1.editContact(firstName, updated);
 
-            Console.WriteLine("Enter the first name of the contact to edit: ");
+            Console.WriteLine("Enter the first name of the contact to delete: ");
             string fName = Console.ReadLine();
             book1.deleteContact(fName);
             Console.ReadLine();
