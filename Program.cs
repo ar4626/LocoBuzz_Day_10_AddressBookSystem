@@ -59,7 +59,7 @@ namespace Address_Book_System
 
             public void editContact(string fname, Contact contact)
             {
-                Contact existing = contacts.Find(c => contact.fname.Equals(fname));
+                Contact existing = contacts.Find(c => c.fname.Equals(fname));
                 //Console.WriteLine(existing.fname);
                 if (existing == null)
                 {
@@ -73,6 +73,23 @@ namespace Address_Book_System
                     existing.state = contact.state;
                     existing.phonenumber = contact.phonenumber;
                     existing.email = contact.email;
+
+                    displayContacts();
+
+                }
+            }
+            public void deleteContact(string fname)
+            {
+                Contact existing = contacts.Find(c => c.fname.Equals(fname));
+                //Console.WriteLine(existing.fname);
+                if (existing == null)
+                {
+                    Console.WriteLine("Contact not found");
+                }
+                else { 
+                    contacts.Remove(existing);
+
+                    Console.WriteLine("Contact deleted Successfully");
                 }
             }
         }
@@ -113,7 +130,10 @@ namespace Address_Book_System
             string firstName = Console.ReadLine();
 
             book1.editContact(firstName, updated);
-            book1.displayContacts();
+
+            Console.WriteLine("Enter the first name of the contact to edit: ");
+            string fName = Console.ReadLine();
+            book1.deleteContact(fName);
             Console.ReadLine();
 
         }
