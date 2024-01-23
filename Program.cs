@@ -8,9 +8,45 @@ namespace Address_Book_System
 {
     internal class Program
     {
+
+        class Contact
+        {
+            public string fname;
+            public string lname;
+            public string address;
+            public string city;
+            public string state;
+            public string phonenumber;
+            public string email;
+
+            /*Contact(string fname, string lname, string address, string city, string state, string phonenumber, string email)
+            {
+                this.fname = fname;
+                this.lname = lname;
+                this.address = address;
+                this.city = city;
+                this.state = state;
+                this.phonenumber = phonenumber;
+                this.email = email;
+            }*/
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Address Book.");
+            List<Contact> addressBook = new List<Contact>();
+
+            Contact newContact = new Contact
+            {
+                fname = "John",
+                lname = "Doe",
+                address = "123 Main St",
+                city = "Anytown",
+                state = "CA",
+                phonenumber = "12345",
+                email = "john.doe@example.com"
+            };
+
         }
     }
 }
