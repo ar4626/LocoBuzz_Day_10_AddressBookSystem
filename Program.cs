@@ -56,6 +56,25 @@ namespace Address_Book_System
                     Console.WriteLine();
                 }
             }
+
+            public void editContact(string fname, Contact contact)
+            {
+                Contact existing = contacts.Find(c => contact.fname.Equals(fname));
+                //Console.WriteLine(existing.fname);
+                if (existing == null)
+                {
+                    Console.WriteLine("Contact not found");
+                }
+                else { 
+                    existing.fname = contact.fname;
+                    existing.lname = contact.lname;
+                    existing.address = contact.address;
+                    existing.city = contact.city;
+                    existing.state = contact.state;
+                    existing.phonenumber = contact.phonenumber;
+                    existing.email = contact.email;
+                }
+            }
         }
 
         static void Main(string[] args)
@@ -77,6 +96,23 @@ namespace Address_Book_System
             AddressBook book1 = new AddressBook();
 
             book1.addContact(newContact);
+            book1.displayContacts();
+
+            Contact updated = new Contact
+            {
+                fname = "Ankit",
+                lname = "Singh",
+                address = "Ramnagar",
+                city = "Hzb",
+                state = "TN",
+                phonenumber = "12345678",
+                email = "adsfasdf@gmail.com"
+            };
+
+            Console.WriteLine("Enter the first name of the contact to edit: ");
+            string firstName = Console.ReadLine();
+
+            book1.editContact(firstName, updated);
             book1.displayContacts();
             Console.ReadLine();
 
