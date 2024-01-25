@@ -38,13 +38,13 @@ namespace Address_Book_System
 
             Contact newContact = new Contact
             {
-                fname = "John",
-                lname = "Doe",
-                address = "123 Main St",
-                city = "Anytown",
-                state = "CA",
+                fname = "Ankit",
+                lname = "Raj",
+                address = "asdf",
+                city = "HZB",
+                state = "jh",
                 phonenumber = "12345",
-                email = "john.doe@example.com"
+                email = "asdf@example.com"
             };
 
         }
