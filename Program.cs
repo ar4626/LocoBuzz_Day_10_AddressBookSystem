@@ -37,8 +37,10 @@ namespace Address_Book_System
                         Console.WriteLine("Enter the name of the User: ");
                         string userName = Console.ReadLine();
 
-                        AddressBook newAddressBook = new AddressBook();
+                        //AddressBook newAddressBook = new AddressBook();
                         newUser.addUser(userName);
+
+                        AddressBook book1 = newUser.getAddressBook(userName);
 
                         Console.Clear();
                         Console.WriteLine($"User {userName} added successfully with a new Address Book.");
@@ -64,7 +66,7 @@ namespace Address_Book_System
                                     count++;
                                     Console.Clear();
                                     Console.WriteLine("Add Details: \n");
-                                    newAddressBook.addContact();
+                                    book1.addContact();
                                     break;
 
                                 case 2:
@@ -72,18 +74,18 @@ namespace Address_Book_System
                                     Console.Clear();
                                     Console.WriteLine("Enter the Email of the contact ot be Deleted.");
                                     string email = Console.ReadLine();
-                                    newAddressBook.deleteContact(email);
+                                    book1.deleteContact(email);
                                     break;
                                 case 3:
                                     Console.Clear();
                                     Console.WriteLine("Enter the Name of the contact to be Edited. ");
                                     string sname = Console.ReadLine();
-                                    newAddressBook.editContact(sname);
+                                    book1.editContact(sname);
                                     break;
                                 case 4:
                                     Console.Clear();
                                     Console.WriteLine($"Contacts for {newUser}\n");
-                                    newAddressBook.displayContacts();
+                                    book1.displayContacts();
                                     break;
                                 case 5:
                                     if (count > 0)
@@ -99,7 +101,7 @@ namespace Address_Book_System
                                         Thread.Sleep(2000);
                                         Console.Clear();
                                         Console.WriteLine("Add Details: \n");
-                                        newAddressBook.addContact();
+                                        book1.addContact();
                                         break;
                                     }
                             }
@@ -121,7 +123,7 @@ namespace Address_Book_System
                         Console.Clear();
                         if (newUser.GetUser().ContainsKey(selectedUserName))
                         {
-                            AddressBook book1 = newUser.getAddressBook(selectedUserName);
+                            AddressBook book2 = newUser.getAddressBook(selectedUserName);
                             bool b = true;
                             while (b)
                             {
@@ -138,25 +140,25 @@ namespace Address_Book_System
                                         case 1:
                                             Console.Clear();
                                             Console.WriteLine("Add Details: \n");
-                                            book1.addContact();
+                                            book2.addContact();
                                             break;
 
                                         case 2:
                                             Console.Clear();
                                             Console.WriteLine("Enter the Email of the contact ot be Deleted.");
                                             string email = Console.ReadLine();
-                                            book1.deleteContact(email);
+                                            book2.deleteContact(email);
                                             break;
                                         case 3:
                                             Console.Clear();
                                             Console.WriteLine("Enter the Name of the contact to be Edited. ");
                                             string sname = Console.ReadLine();
-                                            book1.editContact(sname);
+                                            book2.editContact(sname);
                                             break;
                                         case 4:
                                             Console.Clear();
                                             Console.WriteLine($"Contacts for {selectedUserName}\n");
-                                            book1.displayContacts();
+                                            book2.displayContacts();
                                             break;
                                         case 5:
                                             b = false;
@@ -200,15 +202,65 @@ namespace Address_Book_System
                                     string cityName = Console.ReadLine();
                                     Console.Clear();
                                     List<string> userList = new List<string>();
-                                    foreach (var user in newUser.GetUser().Keys)
+                                    foreach (AddressBook user in newUser.GetUser().Values)
                                     {
-                                        AddressBook book1 = newUser.getAddressBook(user);
-                                        book1.displayContacts();
+                                        foreach(Contact person in user.GetContacts())
+                                        {
+                                            if (person.City == cityName)
+                                            {
+                                                userList.Add(person.Fname);
+                                            }
+                                        }
+                                        
+                                    }
+                                    Console.Clear();
+                                    if(userList.Count > 0)
+                                    {
+                                        Console.WriteLine($"List of Person for city :- {cityName}");
+                                        foreach (String person in userList)
+                                        {
+                                            Console.WriteLine(person);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"There is no person living in city :- {cityName}");
                                     }
                                     
                                     Console.ReadLine();
 
                                     break;
+                                case 2:
+                                    Console.WriteLine("Enter the name of State.");
+                                    string stateName = Console.ReadLine();
+                                    Console.Clear();
+                                    List<string> stateuserList = new List<string>();
+                                    foreach (AddressBook user in newUser.GetUser().Values)
+                                    {
+                                        foreach (Contact person in user.GetContacts())
+                                        {
+                                            if (person.State == stateName)
+                                            {
+                                                stateuserList.Add(person.Fname);
+                                            }
+                                        }
+
+                                    }
+                                    Console.Clear();
+                                    if (stateuserList.Count > 0)
+                                    {
+                                        Console.WriteLine($"List of Person for State :- {stateName}");
+                                        foreach(String person in stateuserList)
+                                        {
+                                            Console.WriteLine(person);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"There is no person living in city :- {stateName}");
+                                    }
+
+                                    Console.ReadLine(); break;
                                 case 3:
                                     q= false;
                                     Console.Clear();    
