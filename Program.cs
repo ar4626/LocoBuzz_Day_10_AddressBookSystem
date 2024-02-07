@@ -25,7 +25,8 @@ namespace Address_Book_System
                 Console.WriteLine("1. Add User");
                 Console.WriteLine("2. Select User and User Address Book Operations");
                 Console.WriteLine("3. Display Users");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Search Users based on City / State");
+                Console.WriteLine("5. Exit");
 
                 int option = Convert.ToInt32(Console.ReadLine());
                 
@@ -56,6 +57,7 @@ namespace Address_Book_System
                             Console.WriteLine("5 Exit");
 
                             int opt = Convert.ToInt32(Console.ReadLine());
+
                             switch (opt)
                             {
                                 case 1:
@@ -182,6 +184,40 @@ namespace Address_Book_System
                         break;
 
                     case 4:
+                        Console.Clear();
+                        bool q = true;
+                        while (q)
+                        {
+                            Console.WriteLine("Filter Operation for person based on .");
+                            Console.WriteLine("1.City");
+                            Console.WriteLine("2.State");
+                            Console.WriteLine("3.Exit");
+                            int filterOption = Convert.ToInt32(Console.ReadLine());
+                            switch (filterOption)
+                            {
+                                case 1:
+                                    Console.WriteLine("Enter the name of City.");
+                                    string cityName = Console.ReadLine();
+                                    Console.Clear();
+                                    List<string> userList = new List<string>();
+                                    foreach (var user in newUser.GetUser().Keys)
+                                    {
+                                        AddressBook book1 = newUser.getAddressBook(user);
+                                        book1.displayContacts();
+                                    }
+                                    
+                                    Console.ReadLine();
+
+                                    break;
+                                case 3:
+                                    q= false;
+                                    Console.Clear();    
+                                    break;
+                            }
+                        }
+
+                        break;
+                    case 5:
                         isRunning = false;
                         break;
                 }
