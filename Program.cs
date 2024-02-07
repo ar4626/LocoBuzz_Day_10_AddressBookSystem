@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Address_Book_System
 {
@@ -56,32 +59,100 @@ namespace Address_Book_System
                 get { return email;}
                 set { email = value; }
             }
+        }
 
+        class Validator
+        {
+            public string checkValidName(string name)
+            {
+                string namePattern = @"^[A-Za-z'-]+$";
+                bool isValidName = Regex.IsMatch(name, namePattern);
+                while (!isValidName)
+                {
+                    Console.WriteLine("Enter a valid Name, donot use special character");
+                    name = Console.ReadLine();
+                    isValidName = Regex.IsMatch(name, namePattern);
+                }
+                return name;
+            }
 
+            public string checkValidAddress(string address)
+            {
+                string addressPattern = "[0-9A-Za-z\\s',.-]+";
+                bool isValidName = Regex.IsMatch(address, addressPattern);
+                while (!isValidName)
+                {
+                    Console.WriteLine("Enter a valid Name, donot use special character");
+                    address = Console.ReadLine();
+                    isValidName = Regex.IsMatch(address, addressPattern);
+                }
+                return address;
+            }
 
+            public string checkPhoneNumber(string phoneNumber)
+            {
+                string phoneNumberPattern = "^[6-9]\\d{9}$";
+                bool isValidName = Regex.IsMatch(phoneNumber, phoneNumberPattern);
+                while (!isValidName)
+                {
+                    Console.WriteLine("Enter a valid Phone Number, donot use country code.");
+                    phoneNumber = Console.ReadLine();
+                    isValidName = Regex.IsMatch(phoneNumber, phoneNumberPattern);
+                }
+                return phoneNumber;
+
+            }
+
+            public string checkEmail(string email)
+            {
+                string emailPattern = "^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[;]{0,1}\\s*)+$";
+                bool isValidEmail = Regex.IsMatch(email, emailPattern);
+                while (!isValidEmail)
+                {
+                    Console.WriteLine("Enter a valid Email {abc@def.com} ");
+                    email = Console.ReadLine();
+                    isValidEmail =  Regex.IsMatch(email, emailPattern);
+                }
+                return email;
+            }
 
         }
 
-        class AddressBook
-        {
 
+        class AddressBook:Validator
+        {
+            
             List<Contact> contacts = new List<Contact>();
             public void addContact()
             {
+
                 Console.WriteLine("Enter the first name: ");
-                string fname = Console.ReadLine();
+                string fname = checkValidName(Console.ReadLine());
+                if (contacts.Any(c => c.Fname.Equals(fname)))
+                {
+                    Console.WriteLine($"Contact with name {fname} already exists. Duplicate entry not allowed.");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    return;
+                }
+
                 Console.WriteLine("Enter the last name: ");
-                string lname = Console.ReadLine();
+                string lname = checkValidName(Console.ReadLine());
+
                 Console.WriteLine("Enter the address: ");
-                string add = Console.ReadLine();
+                string add = checkValidAddress(Console.ReadLine()); 
+
                 Console.WriteLine("Enter the city: ");
-                string city = Console.ReadLine();
+                string city = checkValidName(Console.ReadLine());
+
                 Console.WriteLine("Enter the state: ");
-                string state = Console.ReadLine();
+                string state = checkValidName(Console.ReadLine()); 
+
                 Console.WriteLine("Enter the Phone: ");
-                string phone = Console.ReadLine();
+                string phone = checkPhoneNumber(Console.ReadLine());
+
                 Console.WriteLine("Enter the email: ");
-                string email = Console.ReadLine();
+                string email = checkEmail(Console.ReadLine());
 
                 Contact newCon = new Contact
                 {
@@ -132,7 +203,7 @@ namespace Address_Book_System
                 //Console.WriteLine(existing.fname);
                 if (existing == null)
                 {
-                    Console.WriteLine("Contact not found.");
+                    Console.WriteLine("Contact not found. Enter a valid Name");
                 }
                 else {
                     displayaContact(existing);
@@ -144,31 +215,31 @@ namespace Address_Book_System
                     {
                         case 1:
                             Console.WriteLine("Enter the New First Name : ");
-                            existing.Fname = Console.ReadLine();
+                            existing.Fname = checkValidName(Console.ReadLine());
                             break;
                         case 2:
                             Console.WriteLine("Enter the New Last Name : ");
-                            existing.Lname = Console.ReadLine();
+                            existing.Lname = checkValidName(Console.ReadLine());
                             break;
                         case 3:
                             Console.WriteLine("Enter the New Phone Number : ");
-                            existing.Phonenumber = Console.ReadLine();
+                            existing.Phonenumber = checkPhoneNumber(Console.ReadLine());
                             break;
                         case 4:
                             Console.WriteLine("Enter the New Email : ");
-                            existing.Email = Console.ReadLine();
+                            existing.Email = checkEmail(Console.ReadLine());
                             break;
                         case 5:
                             Console.WriteLine("Enter the New Address : ");
-                            existing.Address = Console.ReadLine();
+                            existing.Address = checkValidAddress(Console.ReadLine());
                             break;
                         case 6:
                             Console.WriteLine("Enter the New City : ");
-                            existing.City = Console.ReadLine();
+                            existing.City = checkValidName(Console.ReadLine());
                             break;
                         case 7:
                             Console.WriteLine("Enter the New State : ");
-                            existing.State = Console.ReadLine();
+                            existing.State = checkValidName(Console.ReadLine());
                             break;
                     }
                     Thread.Sleep(1000);
@@ -201,34 +272,34 @@ namespace Address_Book_System
             }
         }
 
-        class Person
+        class User
         {
-            private Dictionary<string, AddressBook> persons;
+            private Dictionary<string, AddressBook> users;
 
-            public Person()
+            public User()
             {
-                persons = new Dictionary<string, AddressBook>();   
+                users = new Dictionary<string, AddressBook>();   
             }
 
-            public void addPerson(string name)
+            public void addUser(string name)
             {
                 AddressBook book = new AddressBook();
-                persons.Add(name, book);
+                users.Add(name, book);
             }
 
-            public void deletePerson(string name)
+            public void deleteUser(string name)
             {
-                persons.Remove(name);
+                users.Remove(name);
             }
 
             public AddressBook getAddressBook(string name)
             {
-                return persons[name];
+                return users[name];
             }
 
-            public Dictionary<string, AddressBook> GetPersons()
+            public Dictionary<string, AddressBook> GetUser()
             {
-                return persons;
+                return users;
             }
 
         }
@@ -237,48 +308,118 @@ namespace Address_Book_System
         {
             Console.WriteLine("Welcome to Address Book.");
 
-            Person newPerson = new Person();
+            User newUser = new User();
             bool isRunning = true;
+
+            
 
             while (isRunning)
             {
                 Console.WriteLine("Enter an Option to perform : ");
-                Console.WriteLine("1. Add Person");
-                Console.WriteLine("2. Select Person and Perform Address Book Operations");
-                Console.WriteLine("3. Display Persons");
+                Console.WriteLine("1. Add User");
+                Console.WriteLine("2. Select User and User Address Book Operations");
+                Console.WriteLine("3. Display Users");
                 Console.WriteLine("4. Exit");
 
                 int option = Convert.ToInt32(Console.ReadLine());
+                
 
                 switch (option)
                 {
                     case 1:
                         Console.Clear();
-                        Console.WriteLine("Enter the name of the person: ");
-                        string personName = Console.ReadLine();
+                        Console.WriteLine("Enter the name of the User: ");
+                        string userName = Console.ReadLine();
 
                         AddressBook newAddressBook = new AddressBook();
-                        newPerson.addPerson(personName);
+                        newUser.addUser(userName);
 
                         Console.Clear();
-                        Console.WriteLine($"Person {personName} added successfully with a new Address Book.");
+                        Console.WriteLine($"User {userName} added successfully with a new Address Book.");
                         Thread.Sleep(2000);
                         Console.Clear();
+                        
+                        bool a = true;
+                        int count = 0;
+                        while (a)
+                        {
+
+                            Console.WriteLine("Address Book Operations for " + userName);
+                            Console.WriteLine("1.Add Contact");
+                            Console.WriteLine("2.Delete Contact");
+                            Console.WriteLine("3.Update Contact");
+                            Console.WriteLine("4.Display Contacts");
+                            Console.WriteLine("5 Exit");
+
+                            int opt = Convert.ToInt32(Console.ReadLine());
+                            switch (opt)
+                            {
+                                case 1:
+                                    count++;
+                                    Console.Clear();
+                                    Console.WriteLine("Add Details: \n");
+                                    newAddressBook.addContact();
+                                    break;
+
+                                case 2:
+                                    count--;
+                                    Console.Clear();
+                                    Console.WriteLine("Enter the Email of the contact ot be Deleted.");
+                                    string email = Console.ReadLine();
+                                    newAddressBook.deleteContact(email);
+                                    break;
+                                case 3:
+                                    Console.Clear();
+                                    Console.WriteLine("Enter the Name of the contact to be Edited. ");
+                                    string sname = Console.ReadLine();
+                                    newAddressBook.editContact(sname);
+                                    break;
+                                case 4:
+                                    Console.Clear();
+                                    Console.WriteLine($"Contacts for {newUser}\n");
+                                    newAddressBook.displayContacts();
+                                    break;
+                                case 5:
+                                    if (count > 0)
+                                    {
+                                        a = false;
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Atleast enter one contact.");
+                                        Thread.Sleep(2000);
+                                        Console.Clear();
+                                        Console.WriteLine("Add Details: \n");
+                                        newAddressBook.addContact();
+                                        break;
+                                    }
+                            }
+                        }
+
                         break;
 
                     case 2:
                         Console.Clear();
-                        Console.WriteLine("Enter the name of the person: ");
-                        string selectedPersonName = Console.ReadLine();
+                        Console.WriteLine("User List");
+                        foreach (var user in newUser.GetUser().Keys)
+                        {
+                            Console.WriteLine(user);
+                        }
+                        Console.WriteLine("...........................");
+                        Console.WriteLine("Enter the name of the User: ");
+                        string selectedUserName = Console.ReadLine();
 
                         Console.Clear();
-                        if (newPerson.GetPersons().ContainsKey(selectedPersonName))
+                        if (newUser.GetUser().ContainsKey(selectedUserName))
                         {
-                            AddressBook book1 = newPerson.getAddressBook(selectedPersonName);
-                            bool a = true;
-                            while (a)
+                            AddressBook book1 = newUser.getAddressBook(selectedUserName);
+                            bool b = true;
+                            while (b)
                             {
-                                Console.WriteLine("Address Book Operations for " + selectedPersonName);
+                                Console.WriteLine("Address Book Operations for " + selectedUserName);
                                 Console.WriteLine("1.Add Contact");
                                 Console.WriteLine("2.Delete Contact");
                                 Console.WriteLine("3.Update Contact");
@@ -308,11 +449,11 @@ namespace Address_Book_System
                                             break;
                                         case 4:
                                             Console.Clear();
-                                            Console.WriteLine($"Contacts for {selectedPersonName}\n");
+                                            Console.WriteLine($"Contacts for {selectedUserName}\n");
                                             book1.displayContacts();
                                             break;
                                         case 5:
-                                            a = false;
+                                            b = false;
                                             break;
                                     }
                                 }
@@ -320,7 +461,7 @@ namespace Address_Book_System
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"Person {selectedPersonName} not found.");
+                            Console.WriteLine($"User {selectedUserName} not found.");
                             Thread.Sleep(2000);
                             Console.Clear();
                         }
@@ -328,10 +469,10 @@ namespace Address_Book_System
 
                     case 3:
                         Console.Clear();
-                        Console.WriteLine("Persons\n");
-                        foreach(var person in newPerson.GetPersons().Keys)
+                        Console.WriteLine("Users\n");
+                        foreach(var user in newUser.GetUser().Keys)
 {
-                            Console.WriteLine(person);
+                            Console.WriteLine(user);
                         }
                         Console.ReadLine();
                         break;
