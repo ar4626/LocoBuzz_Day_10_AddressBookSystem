@@ -269,7 +269,7 @@ namespace Address_Book_System
                                     {
                                         foreach (string city in cityDictionary.Keys)
                                         {
-                                            Console.Write(city + " : ");
+                                            Console.Write(city + $" ({cityDictionary[city].Count} Contacts) : ");
                                             foreach (String people in cityDictionary[city])
                                             {
                                                 Console.Write($"{people}, ");
@@ -291,7 +291,7 @@ namespace Address_Book_System
                                     {
                                         foreach (string state in stateDictionary.Keys)
                                         {
-                                            Console.Write(state + " : ");
+                                            Console.Write(state + $" ({stateDictionary[state].Count} Contacts) : ");
                                             foreach (String people in stateDictionary[state])
                                             {
                                                 Console.Write($"{people}, ");
