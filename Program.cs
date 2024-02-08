@@ -26,7 +26,8 @@ namespace Address_Book_System
                 Console.WriteLine("2. Select User and User Address Book Operations");
                 Console.WriteLine("3. Display Users");
                 Console.WriteLine("4. Search Users based on City / State");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Get Dictionary of User by City / State");
+                Console.WriteLine("6. Exit");
 
                 int option = Convert.ToInt32(Console.ReadLine());
                 
@@ -201,18 +202,7 @@ namespace Address_Book_System
                                     Console.WriteLine("Enter the name of City.");
                                     string cityName = Console.ReadLine();
                                     Console.Clear();
-                                    List<string> userList = new List<string>();
-                                    foreach (AddressBook user in newUser.GetUser().Values)
-                                    {
-                                        foreach(Contact person in user.GetContacts())
-                                        {
-                                            if (person.City == cityName)
-                                            {
-                                                userList.Add(person.Fname);
-                                            }
-                                        }
-                                        
-                                    }
+                                    List<string> userList = newUser.GetContactByCity(cityName);
                                     Console.Clear();
                                     if(userList.Count > 0)
                                     {
@@ -234,18 +224,7 @@ namespace Address_Book_System
                                     Console.WriteLine("Enter the name of State.");
                                     string stateName = Console.ReadLine();
                                     Console.Clear();
-                                    List<string> stateuserList = new List<string>();
-                                    foreach (AddressBook user in newUser.GetUser().Values)
-                                    {
-                                        foreach (Contact person in user.GetContacts())
-                                        {
-                                            if (person.State == stateName)
-                                            {
-                                                stateuserList.Add(person.Fname);
-                                            }
-                                        }
-
-                                    }
+                                    List<string> stateuserList = newUser.GetContactByState(stateName);
                                     Console.Clear();
                                     if (stateuserList.Count > 0)
                                     {
@@ -269,7 +248,72 @@ namespace Address_Book_System
                         }
 
                         break;
+
                     case 5:
+                        Console.Clear();
+                        bool w = true;
+                        while (w)
+                        {
+                            Console.WriteLine("Get Dictionary of People by City / State : ");
+                            Console.WriteLine("1.City");
+                            Console.WriteLine("2.State");
+                            Console.WriteLine("3.Exit");
+                            int filterOption = Convert.ToInt32(Console.ReadLine());
+                            switch (filterOption)
+                            {
+                                case 1:
+                                    Dictionary<String, List<string>> cityDictionary=newUser.cityDictionaryFinder();
+                                    Console.Clear();
+                                    Console.WriteLine("Dictionary of City");
+                                    if (cityDictionary.Count > 0)
+                                    {
+                                        foreach (string city in cityDictionary.Keys)
+                                        {
+                                            Console.Write(city + " : ");
+                                            foreach (String people in cityDictionary[city])
+                                            {
+                                                Console.Write($"{people}, ");
+                                            }
+                                            Console.WriteLine("\n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("City Dictionary is Empty.");
+                                    }
+                                    Console.ReadLine();
+                                    break;
+                                case 2:
+                                    Dictionary<String, List<string>> stateDictionary = newUser.stateDictionaryFinder();
+                                    Console.Clear();
+                                    Console.WriteLine("Dictionary of State");
+                                    if (stateDictionary.Count > 0)
+                                    {
+                                        foreach (string state in stateDictionary.Keys)
+                                        {
+                                            Console.Write(state + " : ");
+                                            foreach (String people in stateDictionary[state])
+                                            {
+                                                Console.Write($"{people}, ");
+                                            }
+                                            Console.WriteLine("\n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("State Dictionary is Empty.");
+                                    }
+                                    Console.ReadKey();
+                                   break;
+                                case 3:
+                                    w = false;
+                                    Console.Clear();
+                                    break;
+                            }
+                        } break;
+
+                    case 6:
+
                         isRunning = false;
                         break;
                 }
