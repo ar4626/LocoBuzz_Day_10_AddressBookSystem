@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,79 @@ namespace Address_Book_System
         public Dictionary<string, AddressBook> GetUser()
         {
             return users;
+        }
+
+        public List<String> GetContactByCity(string city)
+        {
+            List<String> citylist = new List<String>();
+            foreach (AddressBook name in users.Values)
+            {
+                foreach (Contact person in name.GetContacts())
+                {
+                    if (person.City == city)
+                    {
+                        citylist.Add(person.Fname);
+                    }
+                }
+            }
+
+            return citylist;
+        }
+
+        public List<String> GetContactByState(string state)
+        {
+            List<String> statelist = new List<String>();
+            foreach (AddressBook name in users.Values)
+            {
+                foreach (Contact person in name.GetContacts())
+                {
+                    if (person.State == state)
+                    {
+                        statelist.Add(person.Fname);
+                    }
+                }
+            }
+            return statelist;
+        }
+
+        public Dictionary<String,List<String>> cityDictionaryFinder()
+        {
+            Dictionary<String, List<String>> cityDictionary = new Dictionary<string, List<string>>();
+            List<string> citylist = new List<string>();
+            foreach(AddressBook name in users.Values)
+            {
+                foreach(Contact person in name.GetContacts())
+                {
+                    citylist.Add(person.City);
+                }
+            }
+            citylist=citylist.Distinct().ToList();
+            foreach(String city in citylist)
+            {
+                List<string> citylists = GetContactByCity(city);
+                cityDictionary.Add(city, citylists);
+            }
+            return cityDictionary;
+        }
+
+        public Dictionary<String, List<String>> stateDictionaryFinder()
+        {
+            Dictionary<String, List<String>> stateDictionary = new Dictionary<string, List<string>>();
+            List<string> statelist = new List<string>();
+            foreach (AddressBook name in users.Values)
+            {
+                foreach (Contact person in name.GetContacts())
+                {
+                    statelist.Add(person.City);
+                }
+            }
+            statelist = statelist.Distinct().ToList();
+            foreach (String state in statelist)
+            {
+                List<string> statelists = GetContactByCity(state);
+                stateDictionary.Add(state, statelists);
+            }
+            return stateDictionary;
         }
 
     }

@@ -160,10 +160,12 @@ namespace Address_Book_System
                 Console.Clear();
             }
         }
+            
+        
 
         public List<Contact> GetContacts()
         {
-            Console.WriteLine("Contact returned"+ contacts.Count());
+            //Console.WriteLine("Contact returned"+ contacts.Count());
             return contacts;
         }
     }
