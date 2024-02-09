@@ -45,7 +45,7 @@ namespace Address_Book_System
 
                         Console.Clear();
                         Console.WriteLine($"User {userName} added successfully with a new Address Book.");
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1000);
                         Console.Clear();
                         
                         bool a = true;
@@ -57,7 +57,8 @@ namespace Address_Book_System
                             Console.WriteLine("2.Delete Contact");
                             Console.WriteLine("3.Update Contact");
                             Console.WriteLine("4.Display Contacts");
-                            Console.WriteLine("5 Exit");
+                            Console.WriteLine("5.Sort Contacts");
+                            Console.WriteLine("6 Exit");
 
                             int opt = Convert.ToInt32(Console.ReadLine());
 
@@ -89,6 +90,12 @@ namespace Address_Book_System
                                     book1.displayContacts();
                                     break;
                                 case 5:
+                                    book1.sortContact();
+                                    Console.WriteLine("Contact Sorted ");
+                                    Thread.Sleep(1000); 
+                                    Console.Clear();
+                                    break;
+                                case 6:
                                     if (count > 0)
                                     {
                                         a = false;
@@ -133,8 +140,9 @@ namespace Address_Book_System
                                 Console.WriteLine("2.Delete Contact");
                                 Console.WriteLine("3.Update Contact");
                                 Console.WriteLine("4.Display Contacts");
-                                Console.WriteLine("5 Exit");
-                                
+                                Console.WriteLine("5.Sort Contacts");
+                                Console.WriteLine("6 Exit");
+
                                 int opt = Convert.ToInt32(Console.ReadLine());
                                 switch (opt)
                                     {
@@ -162,6 +170,12 @@ namespace Address_Book_System
                                             book2.displayContacts();
                                             break;
                                         case 5:
+                                            book1.sortContact();
+                                            Console.WriteLine("Contact Sorted ");
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                            break;
+                                        case 6:
                                             b = false;
                                             break;
                                     }
@@ -269,7 +283,7 @@ namespace Address_Book_System
                                     {
                                         foreach (string city in cityDictionary.Keys)
                                         {
-                                            Console.Write(city + $" ({cityDictionary[city].Count} Contacts) : ");
+                                            Console.Write(city + $" ({cityDictionary[city].Count} Person) : ");
                                             foreach (String people in cityDictionary[city])
                                             {
                                                 Console.Write($"{people}, ");
@@ -291,7 +305,7 @@ namespace Address_Book_System
                                     {
                                         foreach (string state in stateDictionary.Keys)
                                         {
-                                            Console.Write(state + $" ({stateDictionary[state].Count} Contacts) : ");
+                                            Console.Write(state + $" ({stateDictionary[state].Count} Person) : ");
                                             foreach (String people in stateDictionary[state])
                                             {
                                                 Console.Write($"{people}, ");
