@@ -164,10 +164,23 @@ namespace Address_Book_System
             }
         }
             
-        public void sortContact()
+        public void sortContact(int a)
         {
-            Console.Clear();
-            contacts = contacts.OrderBy(obj => obj.Fname).ToList();
+            switch (a)
+            {
+                case 0: 
+                    contacts = contacts.OrderBy(obj => obj.Fname).ToList();
+                    break;
+                case 1:
+                    contacts = contacts.OrderBy(obj => obj.City).ThenBy(ob => ob.Fname).ToList();
+                    break;
+                case 2:
+                    contacts = contacts.OrderBy(obj => obj.State).ThenBy(ob=>ob.Fname).ToList();
+                    break;
+                default:
+                    Console.WriteLine("Please choose the Correct Option"); 
+                    break;
+            }
         }
         
 
