@@ -53,6 +53,9 @@ namespace Address_Book_System
                 Email = email
             };
             contacts.Add(newCon);
+
+            //contacts = contacts.OrderBy(obj => obj.Fname).ToList();
+
             Thread.Sleep(1000);
             Console.Clear();
             Console.WriteLine("Contact Added Successfully");
@@ -161,6 +164,11 @@ namespace Address_Book_System
             }
         }
             
+        public void sortContact()
+        {
+            Console.Clear();
+            contacts = contacts.OrderBy(obj => obj.Fname).ToList();
+        }
         
 
         public List<Contact> GetContacts()
