@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -189,5 +190,44 @@ namespace Address_Book_System
             //Console.WriteLine("Contact returned"+ contacts.Count());
             return contacts;
         }
+
+
+        
+
+        // Import contacts from a text file
+        /*public static AddressBook ImportFromFile(string filePath)
+        {
+            AddressBook importedBook = new AddressBook();
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    string[] lines = File.ReadAllLines(filePath);
+                    foreach (var line in lines)
+                    {
+                        string[] values = line.Split(',');
+                        string firstName = values[0];
+                        string lastName = values[1];
+                        string city = values[2];
+                        string state = values[3];
+                        string email = values[4];
+
+                        importedBook.addContact(new Contact(firstName, lastName, city, state, email));
+                    }
+                    Console.WriteLine($"Address Book imported from {filePath} successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("File not found. Please make sure the file exists at the specified path.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading file: {ex.Message}");
+            }
+
+            return importedBook;
+        }*/
+
     }
 }

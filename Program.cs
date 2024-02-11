@@ -27,7 +27,9 @@ namespace Address_Book_System
                 Console.WriteLine("3. Display Address Book");
                 Console.WriteLine("4. Search Users based on City / State");
                 Console.WriteLine("5. Get Dictionary of User by City / State");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Export Address Books to a File");
+                Console.WriteLine("7. Read Address Book saved in File");
+                Console.WriteLine("8. Exit");
 
                 int option = Convert.ToInt32(Console.ReadLine());
                 
@@ -360,9 +362,42 @@ namespace Address_Book_System
                                     Console.Clear();
                                     break;
                             }
-                        } break;
-
+                        } 
+                        break;
                     case 6:
+                        
+                        Console.Clear();
+                        Console.WriteLine("Exporting Address Book to a File...");
+                        newUser.ExportToFile();
+                        Console.WriteLine("Address Book exported successfully.");
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        break;
+
+                    case 7:
+                        Console.Clear();
+                        Console.WriteLine("Enter the path of the file to read the Address Book from: ");
+                        /*string filePath = Console.ReadLine();
+                        if (File.Exists(filePath))
+                        {
+                            Console.WriteLine("Reading Address Book from File...");
+                            AddressBook importedBook = AddressBook.ImportFromFile(filePath);
+                            newUser.addUser(addressBookName, importedBook);
+                            Console.WriteLine("Address Book imported successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("File not found. Please make sure the file exists at the specified path.");
+                        }
+                        Thread.Sleep(1000);
+                        Console.Clear();*/
+                        break;
+
+
+
+
+                        break;
+                    case 8:
 
                         isRunning = false;
                         break;
