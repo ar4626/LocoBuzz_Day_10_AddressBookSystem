@@ -1,0 +1,3 @@
+﻿Raj,Singh,KakkanStreet,Chennai,TamilNadu,9876543210,raj@gamil.com
+Prem,Kumar,adsfsdf,Baktiarpur,Bihar,9843343210,prem@gamil.com
+Anand,Mishra,aasfsdf,Ranchi,Jharkhand,9239923453,anand@gmail.com

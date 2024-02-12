@@ -51,5 +51,16 @@ namespace Address_Book_System
             get { return email; }
             set { email = value; }
         }
+
+        public Contact(string fname, string lname, string address, string city, string state, string phonenumber, string email)
+        {
+            Fname = fname;
+            Lname = lname;
+            Address = address;
+            City = city;
+            State = state;
+            Phonenumber = phonenumber;
+            Email = email;
+        }
     }
 }

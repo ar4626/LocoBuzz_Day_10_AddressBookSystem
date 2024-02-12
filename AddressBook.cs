@@ -43,16 +43,7 @@ namespace Address_Book_System
             Console.WriteLine("Enter the email: ");
             string email = CheckEmail(Console.ReadLine());
 
-            Contact newCon = new Contact
-            {
-                Fname = fname,
-                Lname = lname,
-                Address = add,
-                City = city,
-                State = state,
-                Phonenumber = phone,
-                Email = email
-            };
+            Contact newCon = new Contact(fname, lname, add, city, state, phone, email);
             contacts.Add(newCon);
 
             //contacts = contacts.OrderBy(obj => obj.Fname).ToList();
@@ -192,42 +183,38 @@ namespace Address_Book_System
         }
 
 
-        
+
 
         // Import contacts from a text file
-        /*public static AddressBook ImportFromFile(string filePath)
+        public void ImportFromFile(string filePath)
         {
-            AddressBook importedBook = new AddressBook();
-            try
+            if (File.Exists(filePath))
             {
-                if (File.Exists(filePath))
+                string[] lines = File.ReadAllLines(filePath);
+                foreach (var line in lines)
                 {
-                    string[] lines = File.ReadAllLines(filePath);
-                    foreach (var line in lines)
-                    {
-                        string[] values = line.Split(',');
-                        string firstName = values[0];
-                        string lastName = values[1];
-                        string city = values[2];
-                        string state = values[3];
-                        string email = values[4];
+                    string[] values = line.Split(',');
+                    string firstName = values[0];
+                    string lastName = values[1];
+                    string address = values[2];
+                    string city = values[3];
+                    string state = values[4];
+                    string phonenumber = values[5];
+                    string email = values[6];
 
-                        importedBook.addContact(new Contact(firstName, lastName, city, state, email));
-                    }
-                    Console.WriteLine($"Address Book imported from {filePath} successfully.");
+                    Contact newCon = new Contact(firstName, lastName, address, city, state, phonenumber, email);
+                    contacts.Add(newCon);
                 }
-                else
-                {
-                    Console.WriteLine("File not found. Please make sure the file exists at the specified path.");
-                }
+                Console.WriteLine($"Address Book imported from {filePath} successfully.");
+                Thread.Sleep(1000);
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Error reading file: {ex.Message}");
+                Console.WriteLine("File not found. Please make sure the file exists at the specified path.");
+                Thread.Sleep(1000);
             }
 
-            return importedBook;
-        }*/
+        }
 
     }
 }
