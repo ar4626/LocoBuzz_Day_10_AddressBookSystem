@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -108,6 +110,29 @@ namespace Address_Book_System
                 stateDictionary.Add(state, statelists);
             }
             return stateDictionary;
+        }
+
+        // Export contacts to a text file
+        public void ExportToFile()
+        {
+            string path = @"F:\\LOCOBUZZ\\Day 10\\Address Book System\\addressbook.txt";
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                foreach(String bookName in users.Keys)
+                {
+                    AddressBook name = users[bookName];
+                    int slNo = 1;
+                    writer.WriteLine($"Address Book : {bookName}");
+                    foreach (Contact contact in name.GetContacts())
+                    {
+                        writer.WriteLine($"{slNo++}. Name: {contact.Fname} {contact.Lname}");
+                        writer.WriteLine($"  Address: {contact.Address}, {contact.City}, {contact.State}");
+                        writer.WriteLine($"  Phone: {contact.Phonenumber}");
+                        writer.WriteLine($"  Email: {contact.Email}");
+                        writer.WriteLine();
+                    }
+                }
+            }
         }
 
     }

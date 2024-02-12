@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -42,16 +43,7 @@ namespace Address_Book_System
             Console.WriteLine("Enter the email: ");
             string email = CheckEmail(Console.ReadLine());
 
-            Contact newCon = new Contact
-            {
-                Fname = fname,
-                Lname = lname,
-                Address = add,
-                City = city,
-                State = state,
-                Phonenumber = phone,
-                Email = email
-            };
+            Contact newCon = new Contact(fname, lname, add, city, state, phone, email);
             contacts.Add(newCon);
 
             //contacts = contacts.OrderBy(obj => obj.Fname).ToList();
@@ -189,5 +181,40 @@ namespace Address_Book_System
             //Console.WriteLine("Contact returned"+ contacts.Count());
             return contacts;
         }
+
+
+
+
+        // Import contacts from a text file
+        public void ImportFromFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                foreach (var line in lines)
+                {
+                    string[] values = line.Split(',');
+                    string firstName = values[0];
+                    string lastName = values[1];
+                    string address = values[2];
+                    string city = values[3];
+                    string state = values[4];
+                    string phonenumber = values[5];
+                    string email = values[6];
+
+                    Contact newCon = new Contact(firstName, lastName, address, city, state, phonenumber, email);
+                    contacts.Add(newCon);
+                }
+                Console.WriteLine($"Address Book imported from {filePath} successfully.");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine("File not found. Please make sure the file exists at the specified path.");
+                Thread.Sleep(1000);
+            }
+
+        }
+
     }
 }

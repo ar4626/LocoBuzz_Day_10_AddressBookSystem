@@ -1,0 +1,32 @@
+Address Book : friend
+1. Name: Ankit Raj
+  Address: Ramnagar, Hazaribagh, Jharkhand
+  Phone: 9876543210
+  Email: ankit@gamil.com
+
+2. Name: Harsh Raj
+  Address: asdf, Ranchi, Jharkhand
+  Phone: 9873343210
+  Email: harsh@gamil.com
+
+3. Name: Prince Bhagat
+  Address: asdf, Patna, Bihar
+  Phone: 9234523453
+  Email: prince@gmail.com
+
+Address Book : family
+1. Name: Raj Singh
+  Address: KakkanStreet, Chennai, TamilNadu
+  Phone: 9876543210
+  Email: raj@gamil.com
+
+2. Name: Prem Kumar
+  Address: adsfsdf, Baktiarpur, Bihar
+  Phone: 9843343210
+  Email: prem@gamil.com
+
+3. Name: Anand Mishra
+  Address: aasfsdf, Ranchi, Jharkhand
+  Phone: 9239923453
+  Email: anand@gmail.com
+

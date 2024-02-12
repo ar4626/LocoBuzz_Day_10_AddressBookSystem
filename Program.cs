@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.ConstrainedExecution;
@@ -27,7 +28,9 @@ namespace Address_Book_System
                 Console.WriteLine("3. Display Address Book");
                 Console.WriteLine("4. Search Users based on City / State");
                 Console.WriteLine("5. Get Dictionary of User by City / State");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Export Address Books to a File");
+                Console.WriteLine("7. Read Address Book saved in File");
+                Console.WriteLine("8. Exit");
 
                 int option = Convert.ToInt32(Console.ReadLine());
                 
@@ -44,95 +47,126 @@ namespace Address_Book_System
                         AddressBook book1 = newUser.getAddressBook(addressBookName);
 
                         Console.Clear();
-                        Console.WriteLine($"User {addressBookName} added successfully with a new Address Book.");
+                        Console.WriteLine($"Address Book {addressBookName} added successfully with a new Address Book.");
                         Thread.Sleep(1000);
                         Console.Clear();
                         
-                        bool a = true;
-                        int count = 0;
-                        while (a)
+                        Console.WriteLine("Do you want to take User Input or Import File ?");
+                        Console.WriteLine("1.User Input");
+                        Console.WriteLine("2.Import File");
+
+                        int option1 = Convert.ToInt32(Console.ReadLine());
+
+                        switch (option1)
                         {
-                            Console.WriteLine("Address Book Operations for " + addressBookName);
-                            Console.WriteLine("1.Add Contact");
-                            Console.WriteLine("2.Delete Contact");
-                            Console.WriteLine("3.Update Contact");
-                            Console.WriteLine("4.Display Contacts");
-                            Console.WriteLine("5.Sort Contacts");
-                            Console.WriteLine("6 Exit");
+                            case 1:
+                                bool a = true;
+                                int count = 0;
+                                while (a)
+                                {
+                                    Console.WriteLine("Address Book Operations for " + addressBookName);
+                                    Console.WriteLine("1.Add Contact");
+                                    Console.WriteLine("2.Delete Contact");
+                                    Console.WriteLine("3.Update Contact");
+                                    Console.WriteLine("4.Display Contacts");
+                                    Console.WriteLine("5.Sort Contacts");
+                                    Console.WriteLine("6 Exit");
 
-                            int opt = Convert.ToInt32(Console.ReadLine());
+                                    int opt = Convert.ToInt32(Console.ReadLine());
 
-                            switch (opt)
-                            {
-                                case 1:
-                                    count++;
-                                    Console.Clear();
-                                    Console.WriteLine("Add Details: \n");
-                                    book1.addContact();
-                                    break;
-
-                                case 2:
-                                    count--;
-                                    Console.Clear();
-                                    Console.WriteLine("Enter the Email of the contact ot be Deleted.");
-                                    string email = Console.ReadLine();
-                                    book1.deleteContact(email);
-                                    break;
-                                case 3:
-                                    Console.Clear();
-                                    Console.WriteLine("Enter the Name of the contact to be Edited. ");
-                                    string sname = Console.ReadLine();
-                                    book1.editContact(sname);
-                                    break;
-                                case 4:
-                                    Console.Clear();
-                                    Console.WriteLine($"Contacts for {newUser}\n");
-                                    book1.displayContacts();
-                                    break;
-                                case 5:
-                                    Console.Clear();
-                                    Console.WriteLine("Perform Sort Operation on..");
-                                    Console.WriteLine("1.First Name");
-                                    Console.WriteLine("2.City");
-                                    Console.WriteLine("3.State");
-                                    int o = Convert.ToInt32(Console.ReadLine());
-                                    switch (o)
+                                    switch (opt)
                                     {
                                         case 1:
-                                            book1.sortContact(0);
+                                            count++;
+                                            Console.Clear();
+                                            Console.WriteLine("Add Details: \n");
+                                            book1.addContact();
                                             break;
+
                                         case 2:
-                                            book1.sortContact(1);
+                                            count--;
+                                            Console.Clear();
+                                            Console.WriteLine("Enter the Email of the contact ot be Deleted.");
+                                            string email = Console.ReadLine();
+                                            book1.deleteContact(email);
                                             break;
                                         case 3:
-                                            book1.sortContact(2);
+                                            Console.Clear();
+                                            Console.WriteLine("Enter the Name of the contact to be Edited. ");
+                                            string sname = Console.ReadLine();
+                                            book1.editContact(sname);
                                             break;
+                                        case 4:
+                                            Console.Clear();
+                                            Console.WriteLine($"Contacts for {newUser}\n");
+                                            book1.displayContacts();
+                                            break;
+                                        case 5:
+                                            Console.Clear();
+                                            Console.WriteLine("Perform Sort Operation on..");
+                                            Console.WriteLine("1.First Name");
+                                            Console.WriteLine("2.City");
+                                            Console.WriteLine("3.State");
+                                            int o = Convert.ToInt32(Console.ReadLine());
+                                            switch (o)
+                                            {
+                                                case 1:
+                                                    book1.sortContact(0);
+                                                    break;
+                                                case 2:
+                                                    book1.sortContact(1);
+                                                    break;
+                                                case 3:
+                                                    book1.sortContact(2);
+                                                    break;
 
+                                            }
+                                            Console.WriteLine("Contact Sorted ");
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                            break;
+                                        case 6:
+                                            if (count > 0)
+                                            {
+                                                a = false;
+                                                Console.Clear();
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                Console.Clear();
+                                                Console.WriteLine("Atleast enter one contact.");
+                                                Thread.Sleep(2000);
+                                                Console.Clear();
+                                                Console.WriteLine("Add Details: \n");
+                                                book1.addContact();
+                                                break;
+                                            }
                                     }
-                                    Console.WriteLine("Contact Sorted ");
-                                    Thread.Sleep(1000);
-                                    Console.Clear();
-                                    break;
-                                case 6:
-                                    if (count > 0)
-                                    {
-                                        a = false;
-                                        Console.Clear();
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.Clear();
-                                        Console.WriteLine("Atleast enter one contact.");
-                                        Thread.Sleep(2000);
-                                        Console.Clear();
-                                        Console.WriteLine("Add Details: \n");
-                                        book1.addContact();
-                                        break;
-                                    }
-                            }
+                                }
+                                break;
+                            case 2:
+                                Console.Clear();
+                                Console.WriteLine("Enter the path of the file to read the Address Book from: ");
+
+                                string path = Console.ReadLine();
+                                string filePath = $@"F:\LOCOBUZZ\Day 10\Address Book System\{path}.txt";
+                                if (File.Exists(filePath))
+                                {
+                                    Console.WriteLine("Reading Address Book from File...");
+                                    Thread.Sleep(1000); 
+                                    book1.ImportFromFile(filePath);
+                                    Console.WriteLine("Address Book imported successfully.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("File not found. Please make sure the file exists at the specified path.");
+                                }
+                                Thread.Sleep(1000);
+                                Console.Clear();
+
+                                break;
                         }
-
                         break;
 
                     case 2:
@@ -360,9 +394,39 @@ namespace Address_Book_System
                                     Console.Clear();
                                     break;
                             }
-                        } break;
-
+                        } 
+                        break;
                     case 6:
+                        
+                        Console.Clear();
+                        Console.WriteLine("Exporting Address Book to a File...");
+                        newUser.ExportToFile();
+                        Console.WriteLine("Address Book exported successfully.");
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        break;
+
+                    case 7:
+                        Console.Clear();
+                        Console.WriteLine("Select Address Book for which you want to import?");
+                        Console.WriteLine("User List");
+                        foreach (var user in newUser.GetUser().Keys)
+                        {
+                            Console.WriteLine(user);
+                        }
+                        Console.WriteLine("...........................");
+                        Console.WriteLine("Enter the name of the User: ");
+                        string selectedAddressBook = Console.ReadLine();
+
+                        Console.Clear();
+                        if (newUser.GetUser().ContainsKey(selectedAddressBook))
+                        {
+                            AddressBook book2 = newUser.getAddressBook(selectedAddressBook);
+
+                            
+                        }
+                        break;
+                    case 8:
 
                         isRunning = false;
                         break;

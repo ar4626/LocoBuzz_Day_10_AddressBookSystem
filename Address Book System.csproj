@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AddressBook.cs" />
     <Compile Include="Contact.cs" />
+    <Content Include="input2.txt" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
@@ -55,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="addressbook.txt" />
+    <Content Include="input1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
